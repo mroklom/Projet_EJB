@@ -36,8 +36,7 @@ public class UtilisateurServiceBean implements UtilisateurService {
         if (entities != null) {
             for(UtilisateurEntity e : entities) utilisateurs.add(e.getDTO());
         }
-        
-        Collections.shuffle(utilisateurs);
+       
         return utilisateurs;
     }
 
