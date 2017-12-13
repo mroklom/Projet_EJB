@@ -32,13 +32,13 @@ public class Utilisateur implements Serializable {
     public Utilisateur() {
     }
 
-    public Utilisateur(Integer id, String email, String motDePasse, String nom, Date dateInscription) {
+    public Utilisateur(Integer id, String email, String motDePasse, String nom, Date dateInscription, Boolean bloque) {
         this.id = id;
         this.email = email;
         this.motDePasse = motDePasse;
         this.nom = nom;
         this.dateInscription = dateInscription;
-        this.bloque = false;
+        this.bloque = bloque;
     }
 
     public Integer getId() {

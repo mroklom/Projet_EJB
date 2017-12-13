@@ -15,4 +15,8 @@ public interface UtilisateurService {
     
     void supprimer(Integer id);
     
+    void bloquer(Integer id);
+    
+    void debloquer(Integer id);
+    
 }

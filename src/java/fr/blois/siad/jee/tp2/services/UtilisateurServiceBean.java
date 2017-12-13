@@ -30,11 +30,15 @@ public class UtilisateurServiceBean implements UtilisateurService {
     }
     
     public List<Utilisateur> getUtilisateurs() {
+        em.flush();
         Query q = em.createQuery("SELECT u FROM UtilisateurEntity u");
         List<UtilisateurEntity> entities = q.getResultList();
         List<Utilisateur> utilisateurs  = new ArrayList<Utilisateur>();
         if (entities != null) {
-            for(UtilisateurEntity e : entities) utilisateurs.add(e.getDTO());
+            for(UtilisateurEntity e : entities){
+                em.refresh(e);
+                utilisateurs.add(e.getDTO());
+            }
         }
        
         return utilisateurs;
@@ -72,15 +76,45 @@ public class UtilisateurServiceBean implements UtilisateurService {
     }
 
     @Override
+    public void bloquer(Integer id) {
+        System.out.println(id);
+        try {
+            UtilisateurEntity entity = em.find(UtilisateurEntity.class, id);
+            entity.setBloque(true);
+            System.out.println(entity);
+            em.merge(entity);
+            em.flush();
+        }catch(NoResultException nre) {
+            System.out.println("NoResult");
+        }
+    }
+    
+    @Override
+    public void debloquer(Integer id) {
+        try {
+            UtilisateurEntity entity = em.find(UtilisateurEntity.class, id);
+            entity.setBloque(false);
+            em.merge(entity);
+        }catch(NoResultException nre) {}
+    }
+    
+
+    @Override
     public List<Utilisateur> listerUtilisateurTrieID() {
         List<Utilisateur> utilisateurs = getUtilisateurs();
         
         if(trieIDAsc) {
             Collections.sort(utilisateurs, Utilisateur.TRIIDASC);
             trieIDAsc = false;
+            System.out.println("hello from TRIIDAC");
         } else {
             Collections.sort(utilisateurs, Utilisateur.TRIIDDESC);
             trieIDAsc = true;
+            System.out.println("hello from TRIIDESC");
+        }
+        
+        for (Utilisateur utilisateur : utilisateurs) {
+            System.out.println(utilisateur);            
         }
         
         return utilisateurs;

@@ -114,10 +114,12 @@ public class UtilisateurEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.blois.siad.jee.tp2.entities.UtilisateurEntity[ id=" + id + " ]";
+        return "UtilisateurEntity{" + "id=" + id + ", email=" + email + ", motDePasse=" + motDePasse + ", nom=" + nom + ", dateInscription=" + dateInscription + ", bloque=" + bloque + '}';
     }
 
+    
+
     public Utilisateur getDTO() {
-        return new Utilisateur(id, email, motDePasse, nom, dateInscription);
+        return new Utilisateur(id, email, motDePasse, nom, dateInscription, bloque);
     }
 }
