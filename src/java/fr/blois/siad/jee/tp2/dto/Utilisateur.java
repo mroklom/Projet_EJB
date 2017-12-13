@@ -1,7 +1,6 @@
 package fr.blois.siad.jee.tp2.dto;
 
 import java.io.Serializable;
-import java.util.Comparator;
 import java.util.Date;
 
 public class Utilisateur implements Serializable {
@@ -12,54 +11,6 @@ public class Utilisateur implements Serializable {
     private String nom;
     private Date dateInscription;
     private boolean bloque;
-    
-    public static final Comparator<Utilisateur> TRIIDASC = new Comparator<Utilisateur> (
-    ) {
-        @Override
-        public int compare(Utilisateur o1, Utilisateur o2) {
-            return o1.getId().compareTo(o2.getId());
-        }
-    };
-    
-    public static final Comparator<Utilisateur> TRIIDDESC = new Comparator<Utilisateur> (
-    ) {
-        @Override
-        public int compare(Utilisateur o1, Utilisateur o2) {
-            return o2.getId().compareTo(o1.getId());
-        }
-    };
-    
-    public static final Comparator<Utilisateur> TRINOMASC = new Comparator<Utilisateur> (
-    ) {
-        @Override
-        public int compare(Utilisateur o1, Utilisateur o2) {
-            return o1.getNom().compareTo(o2.getNom());
-        }
-    };
-    
-    public static final Comparator<Utilisateur> TRINOMDESC = new Comparator<Utilisateur> (
-    ) {
-        @Override
-        public int compare(Utilisateur o1, Utilisateur o2) {
-            return o2.getNom().compareTo(o1.getNom());
-        }
-    };
-    
-     public static final Comparator<Utilisateur> TRIEMAILASC = new Comparator<Utilisateur> (
-    ) {
-        @Override
-        public int compare(Utilisateur o1, Utilisateur o2) {
-            return o1.getEmail().compareTo(o2.getEmail());
-        }
-    };
-    
-    public static final Comparator<Utilisateur> TRIEMAILDESC = new Comparator<Utilisateur> (
-    ) {
-        @Override
-        public int compare(Utilisateur o1, Utilisateur o2) {
-            return o2.getEmail().compareTo(o1.getEmail());
-        }
-    };
 
     public Utilisateur() {
     }

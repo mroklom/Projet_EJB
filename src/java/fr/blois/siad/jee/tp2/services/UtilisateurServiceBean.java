@@ -3,11 +3,9 @@ package fr.blois.siad.jee.tp2.services;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.Remote;
 import fr.blois.siad.jee.tp2.dto.*;
 import fr.blois.siad.jee.tp2.entities.UtilisateurEntity;
-import java.util.Collections;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -21,21 +19,44 @@ public class UtilisateurServiceBean implements UtilisateurService {
     @PersistenceContext
     EntityManager em;
     
-    private boolean trieIDAsc = true;
-    private boolean trieNomAsc = true;
-    private boolean trieEmailAsc = true;
+    public static final int PASDETRI = 0;
+    public static final int TRIIDASC = 10;
+    public static final int TRIIDDESC = 11;
+    public static final int TRINOMASC = 20;
+    public static final int TRINOMDESC = 21;
+    public static final int TRIEMAILASC = 30;
+    public static final int TRIEMAILDESC = 31;
     
-    @PostConstruct
-    private void _initMap() {
-        //em.persist(new UtilisateurEntity("a.dupont@gmail.com", "dupont1234", "Alexandre DUPONT", new Date()));
-        //em.persist(new UtilisateurEntity("b.thierry@gmail.com", "thierry1234", "Béatrice THIERRY", new Date()));
-    }
-    
-    public List<Utilisateur> getUtilisateurs() {
+    public List<Utilisateur> getUtilisateurs(int tri) {
         em.flush();
-        Query q = em.createQuery("SELECT u FROM UtilisateurEntity u");
+        String quString = "SELECT u FROM UtilisateurEntity u";
+        
+        switch(tri) {
+            case TRIIDASC :
+                quString += " ORDER BY u.id asc";
+                break;
+            case TRIIDDESC :
+                quString += " ORDER BY u.id desc";
+                break;
+            case TRINOMASC :
+                quString += " ORDER BY u.nom asc";
+                break;
+            case TRINOMDESC :
+                quString += " ORDER BY u.nom desc";
+                break;
+            case TRIEMAILASC :
+                quString += " ORDER BY u.email asc";
+                break;
+            case TRIEMAILDESC :
+                quString += " ORDER BY u.email desc";
+                break;
+            default :
+                break;
+        }
+        
+        Query q = em.createQuery(quString);
         List<UtilisateurEntity> entities = q.getResultList();
-        List<Utilisateur> utilisateurs  = new ArrayList<Utilisateur>();
+        List<Utilisateur> utilisateurs  = new ArrayList<>();
         if (entities != null) {
             for(UtilisateurEntity e : entities){
                 em.refresh(e);
@@ -47,8 +68,8 @@ public class UtilisateurServiceBean implements UtilisateurService {
     }
 
     @Override
-    public List<Utilisateur> listerTous() {
-        return getUtilisateurs();   
+    public List<Utilisateur> listerTous(int tri) {
+        return getUtilisateurs(tri);   
     }
 
     @Override
@@ -99,47 +120,4 @@ public class UtilisateurServiceBean implements UtilisateurService {
             em.merge(entity);
         }catch(NoResultException nre) {}
     }
-    
-
-    @Override
-    public List<Utilisateur> listerUtilisateurTrieID() {
-        List<Utilisateur> utilisateurs = getUtilisateurs();
-        
-        if(trieIDAsc) {
-            Collections.sort(utilisateurs, Utilisateur.TRIIDASC);
-            trieIDAsc = false;
-        } else {
-            Collections.sort(utilisateurs, Utilisateur.TRIIDDESC);
-            trieIDAsc = true;
-        }
-        return utilisateurs;
-    }
-
-    @Override
-    public List<Utilisateur> listerUtilisateurTrieNom() {
-         List<Utilisateur> utilisateurs = getUtilisateurs();
-        
-        if(trieNomAsc) {
-            Collections.sort(utilisateurs, Utilisateur.TRINOMASC);
-            trieNomAsc = false;
-        } else {
-            Collections.sort(utilisateurs, Utilisateur.TRINOMDESC);
-            trieNomAsc = true;
-        }
-        return utilisateurs;
-    }  
-    
-    @Override
-    public List<Utilisateur> listerUtilisateurTrieEmail() {
-         List<Utilisateur> utilisateurs = getUtilisateurs();
-        
-        if(trieEmailAsc) {
-            Collections.sort(utilisateurs, Utilisateur.TRIEMAILASC);
-            trieEmailAsc = false;
-        } else {
-            Collections.sort(utilisateurs, Utilisateur.TRIEMAILDESC);
-            trieEmailAsc = true;
-        }
-        return utilisateurs;
-    }  
 }

@@ -5,13 +5,7 @@ import java.util.List;
 
 public interface UtilisateurService {
 
-    List<Utilisateur> listerTous();
-
-    List<Utilisateur> listerUtilisateurTrieID();
-    
-    List<Utilisateur> listerUtilisateurTrieNom();
-    
-    List<Utilisateur> listerUtilisateurTrieEmail();
+    List<Utilisateur> listerTous(int tri);
     
     Utilisateur lire(Integer id);
     
