@@ -22,6 +22,8 @@ public class UtilisateurServiceBean implements UtilisateurService {
     EntityManager em;
     
     private boolean trieIDAsc = true;
+    private boolean trieNomAsc = true;
+    private boolean trieEmailAsc = true;
     
     @PostConstruct
     private void _initMap() {
@@ -106,17 +108,38 @@ public class UtilisateurServiceBean implements UtilisateurService {
         if(trieIDAsc) {
             Collections.sort(utilisateurs, Utilisateur.TRIIDASC);
             trieIDAsc = false;
-            System.out.println("hello from TRIIDAC");
         } else {
             Collections.sort(utilisateurs, Utilisateur.TRIIDDESC);
             trieIDAsc = true;
-            System.out.println("hello from TRIIDESC");
         }
-        
-        for (Utilisateur utilisateur : utilisateurs) {
-            System.out.println(utilisateur);            
-        }
-        
         return utilisateurs;
     }
+
+    @Override
+    public List<Utilisateur> listerUtilisateurTrieNom() {
+         List<Utilisateur> utilisateurs = getUtilisateurs();
+        
+        if(trieNomAsc) {
+            Collections.sort(utilisateurs, Utilisateur.TRINOMASC);
+            trieNomAsc = false;
+        } else {
+            Collections.sort(utilisateurs, Utilisateur.TRINOMDESC);
+            trieNomAsc = true;
+        }
+        return utilisateurs;
+    }  
+    
+    @Override
+    public List<Utilisateur> listerUtilisateurTrieEmail() {
+         List<Utilisateur> utilisateurs = getUtilisateurs();
+        
+        if(trieEmailAsc) {
+            Collections.sort(utilisateurs, Utilisateur.TRIEMAILASC);
+            trieEmailAsc = false;
+        } else {
+            Collections.sort(utilisateurs, Utilisateur.TRIEMAILDESC);
+            trieEmailAsc = true;
+        }
+        return utilisateurs;
+    }  
 }

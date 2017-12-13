@@ -9,6 +9,10 @@ public interface UtilisateurService {
 
     List<Utilisateur> listerUtilisateurTrieID();
     
+    List<Utilisateur> listerUtilisateurTrieNom();
+    
+    List<Utilisateur> listerUtilisateurTrieEmail();
+    
     Utilisateur lire(Integer id);
     
     void ajouter(Utilisateur u);
