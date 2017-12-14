@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Remote;
 import fr.blois.siad.jee.tp2.dto.*;
 import fr.blois.siad.jee.tp2.entities.UtilisateurEntity;
+import java.sql.SQLIntegrityConstraintViolationException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -85,9 +86,22 @@ public class UtilisateurServiceBean implements UtilisateurService {
     @Override
     public void ajouter(Utilisateur u) {
         if (u != null) {
-            em.persist(new UtilisateurEntity(u.getEmail(),   u.getMotDePasse(), u.getNom(), new Date()));
+            em.persist(new UtilisateurEntity(u.getEmail(),   u.getMotDePasse(), u.getNom(), new Date())); 
         }
     }
+
+    @Override
+    public void changeMDP(Integer id, String nouveauMotDePasse) {
+        try {
+            UtilisateurEntity entity = em.find(UtilisateurEntity.class, id);
+            entity.setMotDePasse(nouveauMotDePasse);
+            em.merge(entity);
+            em.flush();
+        } catch (NoResultException nre){
+            
+        }
+    }
+    
 
     @Override
     public void supprimer(Integer id) {
@@ -100,11 +114,9 @@ public class UtilisateurServiceBean implements UtilisateurService {
 
     @Override
     public void bloquer(Integer id) {
-        System.out.println(id);
         try {
             UtilisateurEntity entity = em.find(UtilisateurEntity.class, id);
             entity.setBloque(true);
-            System.out.println(entity);
             em.merge(entity);
             em.flush();
         }catch(NoResultException nre) {

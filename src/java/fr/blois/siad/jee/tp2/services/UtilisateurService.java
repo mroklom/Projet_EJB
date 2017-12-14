@@ -17,4 +17,6 @@ public interface UtilisateurService {
     
     void debloquer(Integer id);
     
+    void changeMDP(Integer id, String nouveauMotDePasse);
+    
 }
