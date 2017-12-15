@@ -1,6 +1,6 @@
-package fr.blois.siad.jee.tp2.entities;
+package fr.blois.bdma.jee.projet.inscription.entities;
 
-import fr.blois.siad.jee.tp2.dto.User;
+import fr.blois.bdma.jee.projet.inscription.dto.User;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;

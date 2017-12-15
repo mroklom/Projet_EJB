@@ -1,6 +1,6 @@
-package fr.blois.siad.jee.tp2.services;
+package fr.blois.bdma.jee.projet.inscription.services;
 
-import fr.blois.siad.jee.tp2.dto.User;
+import fr.blois.bdma.jee.projet.inscription.dto.User;
 import java.util.List;
 
 public interface UserService {

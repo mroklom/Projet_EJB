@@ -1,7 +1,7 @@
-package fr.blois.siad.jee.tp2.services;
+package fr.blois.bdma.jee.projet.inscription.services;
 
-import fr.blois.siad.jee.tp2.dto.User;
-import fr.blois.siad.jee.tp2.entities.UserEntity;
+import fr.blois.bdma.jee.projet.inscription.dto.User;
+import fr.blois.bdma.jee.projet.inscription.entities.UserEntity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

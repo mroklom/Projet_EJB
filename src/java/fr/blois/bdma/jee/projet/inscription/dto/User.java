@@ -1,4 +1,4 @@
-package fr.blois.siad.jee.tp2.dto;
+package fr.blois.bdma.jee.projet.inscription.dto;
 
 import java.io.Serializable;
 import java.util.Date;
